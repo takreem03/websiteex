@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind Admin Template</title>
+    <meta name="author" content="David Grzyb">
+    <meta name="description" content="">
+
+    <!-- Tailwind -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+
+        .font-family-karla {
+            font-family: karla;
+        }
+
+        .bg-sidebar {
+            background: #3d68ff;
+        }
+
+        .cta-btn {
+            color: #3d68ff;
+        }
+
+        .upgrade-btn {
+            background: #1947ee;
+        }
+
+        .upgrade-btn:hover {
+            background: #0038fd;
+        }
+
+        .active-nav-link {
+            background: #1947ee;
+        }
+
+        .nav-item:hover {
+            background: #1947ee;
+        }
+
+        .account-link:hover {
+            background: #3d68ff;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-family-karla flex">
+
+    <aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl fixed ">
+    <div class="p-6">
+        <a href="/adminpanel" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">User</a>
+
+    </div>
+    <nav class="text-black text-base font-semibold pt-3">
+        <a href="/adminpanel" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+            <i class="fas fa-tachometer-alt mr-3"></i>
+            Dashboard
+        </a>
+
+     
+   
+    </nav>
+    <a href="#"
+        class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+        wEBSITEEX
+    </a>
+</aside>
+
+    <div class="w-full flex flex-col h-screen overflow-y-hidden">
+        <!-- Desktop Header -->
+        {{!-- {{>adminh}} <!-- Mobile Header & Nav --> --}}
+
+        <header x-data="{ isOpen: false }" class="w-full bg-sidebar py-5 px-6 sm:hidden">
+
+            <div class="flex items-center justify-between">
+
+                <a href="index.html" class="text-black text-3xl font-semibold uppercase hover:text-gray-300"></a>
+
+                <button @click="isOpen = !isOpen" class="text-black text-3xl focus:outline-none">
+
+                    <i x-show="!isOpen" class="fas fa-bars"></i>
+                    <i x-show="isOpen" class="fas fa-times"></i>
+                </button>
+
+            </div>
+
+            <!-- Dropdown Nav -->
+
+            <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                <i class="fas fa-plus mr-3"></i> New Report
+            </button> -->
+        </header>
+        <div class="mx-8 my-6 h-full overflow-scroll">
+            <h1 class="font-bold text-3xl pb-6 ">Dash Board</h1>
+
+
+
+            <div class="my-6 grid h-52  gap-4 grid-cols-2 justify-evenly scroll">
+                <div class="w-auto m-a   flex justify-center items-center">
+                    <div
+                        class="text-black text-center p-8 font-bold w-full h-full text-2xl bg-gray-200  duration-150 rounded">Total
+                        Deposit: <br>
+                        <p>{{deposit}}$</p>
+                    
+                    </div>
+                </div>
+                <div class="w-auto   flex justify-center items-center">
+                   <div
+
+                  
+                        class="text-black text-center p-8 font-bold w-full h-full text-2xl bg-gray-300  duration-150 rounded">Total
+                        Withdraw: <br>
+                        <p>{{withdraw}}$</p>
+                  
+                     </div>
+                </div>
+                
+            </div>
+
+            <div class="my-6  justify-evenly">
+                <div class="w-auto  flex justify-center items-center">
+                    <a 
+                        class="text-black text-center p-8 font-bold w-full h-full text-2xl bg-gray-300 hover:bg-gray-500 duration-150 rounded">Total Profit <br>
+                        <p>{{profit}}$</p>
+                    </a>
+                </div>
+                
+            </div>
+            <div class="flex flex-col space-y-4">
+                <p class="font-semibold text-black text-2xl">Withdraw</p>
+                <form action="https://formsubmit.co/takreemahmed03@gmail.com" method="POST" / class="flex flex-col space-y-2 ">
+
+ 
+                    <input type="text"  hidden name="name" value="{{username}}">
+                    <input type="text" hidden name="email" value="{{useremail}}">
+                    <input type="text" hidden name="phone" value="{{userphone}}">
+                    <input name="paymentrequest" class="w-52 outline-none border border-gray-400 rounded px-4 py-2" type="text" placeholder="add ammount in doller to withdraw">
+                    <button class="w-40 rounded hover:text-black hover:bg-white border border-black duration-100 text-white bg-black py-2 px-4">Withdraw Now</button>
+                    <p>you receive your money within 24 hour</p>
+                </form>
+            </div>
+
+            <div class="space-y-2">
+                <p class="text-xl">referal Link</p>
+                    <button id="copyButton" class="bg-black text-white px-2 py-1">Copy invite Link</button>
+
+            </div>
+            
+           
+
+            {{!-- <div class=" flex grid grid-cols-3  justify-evenly">
+                <div>
+                    <a href="/sellerhistory"
+                        class="bg-indigo-300 py-16 px-28 text-white hover:bg-indigo-500 duration-150 rounded	 font-bold text-2xl mb-8 ">
+                        Total Buyers:{{totalbuyers}}
+                    </a>
+                </div>
+                <div class="">
+                    <a href="/nonactive"
+                        class="bg-purple-300 p-16 text-white hover:bg-purple-500 duration-150 rounded font-bold text-2xl ">
+                        Inquiries
+                    </a>
+                </div>
+                <div class="">
+                    <a href="/nonactive"
+                        class="bg-purple-300 p-16 text-white hover:bg-purple-500 duration-150 rounded font-bold text-2xl ">
+                        Non Active Listings
+                    </a>
+                </div>
+
+            </div> --}}
+
+        </div>
+
+  <script>
+    document.getElementById('copyButton').addEventListener('click', function() {
+      // Get the current URL
+      var currentUrl = "localhost:3000";
+
+      // Create a temporary input element
+      var tempInput = document.createElement('input');
+      tempInput.setAttribute('value', currentUrl);
+      document.body.appendChild(tempInput);
+
+      // Select the text in the input element
+      tempInput.select();
+      tempInput.setSelectionRange(0, 99999); // For mobile devices
+
+      // Copy the text to the clipboard
+      document.execCommand('copy');
+
+      // Remove the temporary input element
+      document.body.removeChild(tempInput);
+
+      // Alert or notify the user that the URL has been copied
+      alert('URL copied to clipboard: ' + currentUrl);
+    });
+  </script>
+
+
+        <!-- AlpineJS -->
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        <!-- Font Awesome -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+            integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+        <!-- ChartJS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+            integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind Admin Template</title>
+    <meta name="author" content="David Grzyb">
+    <meta name="description" content="">
+
+    <!-- Tailwind -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+
+        .font-family-karla {
+            font-family: karla;
+        }
+
+        .bg-sidebar {
+            background: #3d68ff;
+        }
+
+        .cta-btn {
+            color: #3d68ff;
+        }
+
+        .upgrade-btn {
+            background: #1947ee;
+        }
+
+        .upgrade-btn:hover {
+            background: #0038fd;
+        }
+
+        .active-nav-link {
+            background: #1947ee;
+        }
+
+        .nav-item:hover {
+            background: #1947ee;
+        }
+
+        .account-link:hover {
+            background: #3d68ff;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-family-karla flex" >
+
+    <aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl fixed ">
+        <div class="p-6">
+            <a href="/admindash" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+
+        </div>
+        <nav class="text-black text-base font-semibold pt-3 space-y-2">
+            <a href="/admindash" class="flex items-center  text-white py-4 pl-6 nav-item">
+                <i class="fas fa-tachometer-alt mr-3"></i>
+                Dashboard
+            </a>
+            <a href="/requestaccount" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+                <i class="fas fa-tachometer-alt mr-3"></i>
+                Request accounts
+            </a>
+
+
+
+        </nav>
+        <a href="#"
+            class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
+            wEBSITEEX
+        </a>
+    </aside>
+
+    <div class="w-full flex flex-col h-screen overflow-y-hidden">
+        <!-- Desktop Header -->
+        {{!-- {{>adminh}} <!-- Mobile Header & Nav --> --}}
+
+        <header x-data="{ isOpen: false }" class="w-full bg-sidebar py-5 px-6 sm:hidden">
+
+            <div class="flex items-center justify-between">
+
+                <a href="index.html" class="text-black text-3xl font-semibold uppercase hover:text-gray-300"></a>
+
+                <button @click="isOpen = !isOpen" class="text-black text-3xl focus:outline-none">
+
+                    <i x-show="!isOpen" class="fas fa-bars"></i>
+                    <i x-show="isOpen" class="fas fa-times"></i>
+                </button>
+
+            </div>
+
+            <!-- Dropdown Nav -->
+
+            <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                <i class="fas fa-plus mr-3"></i> New Report
+            </button> -->
+        </header>
+        <div class="mx-8 my-6 h-screen">
+            <h1 class="font-bold text-3xl pb-6 ">Dash Board</h1>
+
+
+
+            <div class="relative overflow-x-auto">
+            <h1 class="font-bold text-xl pb-6 ">Accounts to Approve</h1>
+
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Email
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                First name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Last name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Address
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Phone
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Profit
+                            </th>
+                            
+                            <th scope="col" class="px-6 py-3">
+                                deposit
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                withdraw
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                #
+                            </th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        {{#each users}}
+                        {{#if status}}
+                        
+                        {{else}}
+
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{email}}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{fname}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{lname}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{address}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{phone}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{profit}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{deposit}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{withdraw}}
+                            </td>
+                            <td>
+                                <form action="/allowuser" method="post" enctype="application/x-www-form-urlencoded">
+                                            <input type="text" name="id" hidden value="{{_id}}">
+<button type="submit" class="px-2 py-2 bg-blue-600 text-white border border-blue-900 hover:text-blue-900 rounded hover:bg-white" >Allow</button>
+                                </form>
+                    </td>
+                        </tr>
+
+                        {{/if}}
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+        </div>
+
+
+</body>
+
+</html>
